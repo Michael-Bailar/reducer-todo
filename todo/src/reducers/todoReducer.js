@@ -4,12 +4,12 @@ const todoInitialState =  {
         {
             item: 'Learn about reducers',
             completed: false, 
-            id: 1
+            id: 0
         },
         {
             item: 'chores',
             completed: false, 
-            id: 2
+            id: 1
         }
     ]
 }
@@ -26,7 +26,7 @@ const todoReducer = (state, action) => {
                     {
                         item: action.payload,
                         completed: false,
-                        id: (state.todoItems.length + 1)
+                        id: (state.todoItems.length)
                     }
                 ]
             }
@@ -34,8 +34,7 @@ const todoReducer = (state, action) => {
         case 'TOGGLE_COMPLETE':
             return {
                 ...state,
-                todoItems: state.todoItems.map((item, index) => {
-                    console.log(item, index, action)
+                todoItems: state.todoItems.map(item => {
                     if (item.id === action.id) {
                         return {
                             ...item,
@@ -44,6 +43,16 @@ const todoReducer = (state, action) => {
                     } else {
                         return {...item}
                     }
+                })
+            }
+
+        case 'REMOVE_COMPLETED_ITEMS':
+            return {
+                ...state,
+                todoItems: state.todoItems.filter(item => {
+                    if (item.completed === false ){
+                        return {...item}
+                    } 
                 })
             }
 

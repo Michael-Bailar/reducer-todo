@@ -28,6 +28,12 @@ const TodoList = () => {
                     Add Todo
                 </button>
             </div>
+            <button
+                onClick={ () =>
+                    dispatch({ type: 'REMOVE_COMPLETED_ITEMS'})}
+            >
+                Remove Completed Items
+            </button>
             <div className='todo-card-container'>
                 { state.todoItems.map((item, index) => {
                     return(
