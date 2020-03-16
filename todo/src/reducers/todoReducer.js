@@ -1,34 +1,50 @@
 
-const todoInitialState = [
-    {
-        item: 'Learn about reducers',
-        completed: true, 
-        id: 1
-    },
-    {
-        item: 'chores',
-        completed: false, 
-        id: 2
-    }
-]
+const todoInitialState =  {
+    todoItems: [
+        {
+            item: 'Learn about reducers',
+            completed: false, 
+            id: 1
+        },
+        {
+            item: 'chores',
+            completed: false, 
+            id: 2
+        }
+    ]
+}
+
+
 
 const todoReducer = (state, action) => {
     switch(action.type) {
         case 'ADD_NEW_CHORE':
-            return [
+            return {
                 ...state,
-                {
-                    item: action.payload,
-                    completed: false,
-                    id: new Date()
-                }
-            ]
+                todoItems: [
+                    ...state.todoItems, 
+                    {
+                        item: action.payload,
+                        complete: false,
+                        id: (state.todoItems.length + 1)
+                    }
+                ]
+            }
+
         case 'TOGGLE_COMPLETE':
             console.log(state)
-            state.map(item => {
-                return item.completed = action.payload
-                }
-            )
+            return {
+                ...state,
+                todoItems: state.todoItems.map((item, index) => {
+                    console.log(item, index, action)
+                    if (item.id !== (index)) {
+                        return {
+                            ...item,
+                            completed: action.payload
+                        }
+                    }
+                })
+            }
 
         default:
             return state;
