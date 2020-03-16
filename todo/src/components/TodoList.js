@@ -32,12 +32,12 @@ const TodoList = () => {
                 { state.todoItems.map((item, index) => {
                     return(
                         <div 
-                            className={`todo-card ${!item.completed ? 'complete' : 'incomplete'}`} 
+                            className={`todo-card ${item.completed ? 'complete' : 'incomplete'}`} 
                             key={index} 
                         >
                             <p 
                                 onClick={() => 
-                                    dispatch({ type: 'TOGGLE_COMPLETE', payload: !item.completed})
+                                    dispatch({ type: 'TOGGLE_COMPLETE', payload: !item.completed, id: item.id})
                                 }
                             >
                                 {item.item} 
